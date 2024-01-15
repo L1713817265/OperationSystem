@@ -6,9 +6,10 @@
 #include <unistd.h>
 #include <string.h>
 
-/*todo*/
-#define BUFFER_SIZE 5
-int main(int argc, const char *argv)
+#define BUFFER_SIZE 10
+
+
+int main(int argc, const char *argv[])
 {
     /* 如果命令行参数个数不为3, 就报错 */
     if(argc != 3)
@@ -18,38 +19,43 @@ int main(int argc, const char *argv)
     }
 
     /* 源文件 */
-    int fd1 = open(argv[1], O_RDWR);
-    if (fd1 == -1)
+    int fd = open(argv[1], O_RDWR);
+    if (fd == -1)
     {
         perror("open error");
     }
 
     /* 目标文件 */
-    int fd2 = open(argv[2], O_RDWR | O_CREAT);
-    if (fd2 == -1)
+    int fdCopy = open(argv[2], O_RDWR | O_CREAT);
+    if (fdCopy == -1)
     {
         perror("open error");
     }
-    /*读取文件，缓冲区*/
+
+    /* 读取文件，缓冲区 */
     char buffer[BUFFER_SIZE]; 
     memset(buffer, 0, sizeof(buffer));
-    /*文件打开 那文件指针默认在文件开头*/
+
+    /* 文件打开 那文件指针默认在文件开头 */
     int readLen = 0;
     while (1)
     {
-        readLen = read(fd1, buffer, sizeof(buffer) - 1);
+        readLen = read(fd, buffer, BUFFER_SIZE - 1);
         if(readLen == 0)
         {
+            /* 说明文件读完了 */
             break;
         }
-        write(fd2, buffer, readLen);
-        if (readLen < BUFFER_SIZE || readLen == 0)
+        write(fdCopy, buffer, readLen);
+        if (readLen < BUFFER_SIZE - 1)
         {
             break;
         }
     }
-    close(fd1);
-    close(fd2);
+
+    /* 关闭文件 */
+    close(fd);
+    close(fdCopy);
 
     return 0;
 }
