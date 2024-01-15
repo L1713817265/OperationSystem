@@ -7,6 +7,7 @@
 
 int main()
 {
+    /* 打开文件 */
     int fd1 = open("./hello.txt", O_RDWR | O_CREAT, 0644);
     if(fd1 == -1)
     {
