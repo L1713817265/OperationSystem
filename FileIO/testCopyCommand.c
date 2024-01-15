@@ -8,7 +8,6 @@
 
 #define BUFFER_SIZE 10
 
-
 int main(int argc, const char *argv[])
 {
     /* 如果命令行参数个数不为3, 就报错 */
