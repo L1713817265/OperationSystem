@@ -23,7 +23,6 @@ int main()
     read(fd, buf, sizeof(buf) - 1);
     printf("buf:%s\n", buf);
 
-
     off_t offset = lseek(fd, 0, SEEK_CUR);
     printf("offset:%ld\n", offset);
 
