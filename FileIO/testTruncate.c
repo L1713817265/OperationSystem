@@ -16,6 +16,5 @@ int main()
         perror("truncate error");
         return 0;
     }
-
     return 0;
 }
