@@ -18,7 +18,7 @@ int main()
 
     char *ptr = "hello world\n";
     /* 向文件中写数据 */
-    int bytes = write(fd, ptr, strlen(ptr) + 1);
+    int bytes = write(fd, ptr, strlen(ptr));
     if(bytes < 0)
     {
         perror("write error");
@@ -59,9 +59,6 @@ int main()
     /* 关闭文件 */
     close(fd);
 #endif
-
-
-
 
     return 0;
 }
